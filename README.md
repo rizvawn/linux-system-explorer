@@ -1,4 +1,4 @@
-# Project 1: Linux System Explorer
+# Linux System Explorer
 
 > Interactive script that teaches Linux Filesystem Hierarchy Standard (FHS) through exploration and quizzes
 
