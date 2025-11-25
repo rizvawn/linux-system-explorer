@@ -3,7 +3,7 @@ set -euo pipefail
 
 readonly RED='\033[0;31m'
 readonly GREEN='\033[0;32m'
-readonly YELLOW='\033[0;33m'
+readonly YELLOW='\033[1;33m'
 readonly BLUE='\033[0;34m'
 readonly NC='\033[0m'
 
@@ -24,7 +24,7 @@ main() {
     while true; do
         show_menu
         read -rp "Choose an option (1-4): " choice
-
+        
         case "$choice" in
             1)
                 echo -e "\n${GREEN}Directory exploration coming soon...${NC}"
