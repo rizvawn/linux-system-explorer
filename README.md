@@ -10,7 +10,7 @@
 
 ## 📋 Project Overview
 
-**Goal**: Build an interactive learning tool that helps users understand the Linux Filesystem Hierarchy Standard by exploring directories, viewing their purposes, and testing knowledge through quizzes.
+**Goal**: This project provides an interactive learning tool that helps users understand the Linux Filesystem Hierarchy Standard by exploring directories, viewing their purposes, and testing knowledge through quizzes.
 
 **Learning-Focused**: This project prioritizes understanding over portfolio presentation. The skills learned here are foundational for all future Linux projects.
 
@@ -34,7 +34,7 @@ This project covers:
 - **CLI design**: Interactive menus, colored output, user experience
 - **Documentation**: Clear help text, usage examples
 
-**Key Commands to Master**:
+**Key Commands covered:**
 
 - `ls -lah`, `cd`, `pwd`
 - `find`, `tree`, `du`
@@ -238,17 +238,17 @@ The project was designed in four phases:
 
 ### Potential Enhancements (Optional)
 
-- 🔧 Add `--daemon` mode that quizzes you randomly throughout the day
+- 🔧 An enhancement could be adding a `--daemon` mode that quizzes the user randomly throughout the day.
 - 🔧 Track quiz scores over time (progress tracking)
 - 🔧 Generate visual tree diagrams of FHS structure
 - 🔧 Include comparisons with Windows/macOS file systems
 
 ### What NOT to Spend Time On
 
-- ❌ Complex TUI (curses/dialog) - stick with simple menus
-- ❌ Configuration files - this is a simple script
-- ❌ Database for quiz questions - use hardcoded arrays
-- ❌ Multi-language support - focus on functionality
+- ❌ Complex TUI (curses/dialog): The project intentionally uses simple menus.
+- ❌ Configuration files: This project focuses on being a simple script.
+- ❌ Database for quiz questions: Hardcoded arrays are used for simplicity.
+- ❌ Multi-language support: Functionality is prioritized over localization.
 
 ---
 
