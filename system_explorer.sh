@@ -42,7 +42,7 @@ explore_directory() {
         read -r item
 
         if [[ -z "$item" ]]; then
-            return 2
+            return 0
         fi
 
         local full_path="${dir%/}/${item##*/}"  # % removes the given suffix, which in our case is '/', and ## removes the entire prefix
@@ -54,7 +54,7 @@ explore_directory() {
 
         if [[ -d "$full_path" ]]; then
             explore_directory "$full_path"
-            if [[ $? -eq 2 ]]; then return 2; fi
+            if [[ $? -eq 0 ]]; then return 0; fi
         elif [[ -f "$full_path" ]]; then
             echo -e "${GREEN}File Type:${NC}"
             file "$full_path"
@@ -72,7 +72,7 @@ menu() {
         read -p "Choose an option (1-3): " choice
 
         case $choice in
-            1) explore_directory || true ;;
+            1) explore_directory ;;
             2) echo "Quiz not implemented yet." ;;
             3) echo "Goodbye!"; break ;;
             *) echo -e "${RED}invalid choice. Please select 1-3.${NC}" ;;
