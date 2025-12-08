@@ -17,11 +17,12 @@ menu() {
         echo "3. Exit"
         read -p "Choose an option (1-3): " choice
 
-        local function_path="$(cd "$(dirname "$BASH_SOURCE[0]")" && pwd)/function_explore_directory.sh"
+        local function_explore_directory="$(cd "$(dirname "$BASH_SOURCE[0]")" && pwd)/function_explore_directory.sh"
+        local function_start_quiz="$(cd "$(dirname "$BASH_SOURCE[0]")" && pwd)/function_start_quiz.sh"
 
         case $choice in
-            1) source "$function_path" ;;
-            2) echo "Quiz not implemented yet." ;;
+            1) source "$function_explore_directory" ;;
+            2) source "$function_start_quiz" ;;
             3) echo "Goodbye!"; break ;;
             *) echo -e "${RED}invalid choice. Please select 1-3.${NC}" ;;
         esac
