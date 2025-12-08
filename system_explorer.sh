@@ -57,7 +57,16 @@ explore_directory() {
             if [[ $? -eq 0 ]]; then return 0; fi
         elif [[ -f "$full_path" ]]; then
             echo -e "${GREEN}File Type:${NC}"
-            file "$full_path"
+            file_info=$(file "$full_path")
+            echo "$file_info"
+
+            echo -e "${GREEN}File Stats:${NC}"
+            stat "$full_path"
+
+            if [[ "$file_info" == *"text"* ]]; then
+                echo -e "\n${YELLOW}Content Preview (head -n 20):${NC}"
+                head -n 20 "$full_path"
+            fi
         fi
     done
 }
