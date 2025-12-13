@@ -17,8 +17,8 @@ menu() {
         echo "3. Exit"
         read -p "Choose an option (1-3): " choice
 
-        local function_explore_directory="$(cd "$(dirname "$BASH_SOURCE[0]")" && pwd)/function_explore_directory.sh"
-        local function_start_quiz="$(cd "$(dirname "$BASH_SOURCE[0]")" && pwd)/function_start_quiz.sh"
+        local function_explore_directory="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/function_explore_directory.sh"
+        local function_start_quiz="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/function_start_quiz.sh"
 
         case $choice in
             1) source "$function_explore_directory" ;;
