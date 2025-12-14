@@ -16,54 +16,77 @@ start_quiz() {
         ["Q13"]="A program needs a shared library 'libc.so'. Where is it located?|a) /usr/lib|b) /bin/lib|c) /lib or /lib64|d) /var/lib|answer:c|explanation:/lib (or /lib64) contains essential shared libraries needed by /bin and /sbin programs."
     )
 
-    score=0
+    local score=0
+    local correct_answer=""
+    local explanation=""
 
-    for key in "${!QUESTIONS[@]}"; do
+    declare -A answered_correctly=()
 
-        value="${QUESTIONS[$key]}"
+    mapfile -t sorted_keys < <(printf '%s\n' "${!QUESTIONS[@]}" | sort -V)
 
-        IFS='|' read -r -a parts <<< "$value"
+    while (( $score < "${#QUESTIONS[@]}" )); do
 
-        printf '\n\n%s -> %s\n\n' "Question" "${parts[0]}"
+        for key in "${sorted_keys[@]}"; do
 
-        for ((i=1; i<=4; i++)); do
-            printf '%s\n' "${parts[i]}"
-        done
-
-        for part in "${parts[@]}"; do
-            if [[ "$part" == answer:* ]]; then
-                correct_answer="${part#answer:}"
+            if [[ -n "${answered_correctly[$key]:-}" ]]; then
+                continue
             fi
-            if [[ "$part" == explanation:* ]]; then
-                explanation="${part#explanation:}"
+
+            local value="${QUESTIONS[$key]}"
+
+            IFS='|' read -r -a parts <<< "$value"
+
+            printf '\n\n%s -> %s\n\n' "$key" "${parts[0]}"
+
+            for ((i=1; i<=4; i++)); do
+                printf '%s\n' "${parts[i]}"
+            done
+
+            for part in "${parts[@]}"; do
+                if [[ "$part" == answer:* ]]; then
+                    correct_answer="${part#answer:}"
+                fi
+                if [[ "$part" == explanation:* ]]; then
+                    explanation="${part#explanation:}"
+                fi
+            done
+
+            while true; do
+                echo
+                read -p "Your answer (a/b/c/d) or press Enter to exit: " user_answer
+
+                if [[ -z "$user_answer" ]]; then return 0; fi
+
+                case "$user_answer" in
+                    a|b|c|d)
+                        break
+                        ;;
+                    *)
+                        echo -e "${RED}Error: Your answer isn't a valid option.${NC}"
+                        ;;
+                esac
+            done
+
+            if [[ "$user_answer" == "$correct_answer" ]]; then
+                ((score += 1))
+                answered_correctly["$key"]=1
+                echo -e "${GREEN}✓ Correct! Your score is ${score}/${#QUESTIONS[@]}.${NC}"
+            else    
+                echo -e "${RED}✗ Wrong. The correct answer is: $correct_answer${NC}"
             fi
+
+            echo -e "${YELLOW}Explanation: $explanation${NC}"
         done
 
-        while true; do
-            echo
-            read -p "Your answer (a/b/c/d) or press Enter to exit: " user_answer
-
-            if [[ -z "$user_answer" ]]; then return 0; fi
-
-            case "$user_answer" in
-                a|b|c|d)
-                    break
-                    ;;
-                *)
-                    echo -e "${RED}Error: Your answer isn't a valid option.${NC}"
-                    ;;
-            esac
-        done
-
-        if [[ "$user_answer" == "$correct_answer" ]]; then
-            ((score += 1))
-            echo -e "${GREEN}✓ Correct! Your score is ${score}.${NC}"
-        else    
-            echo -e "${RED}✗ Wrong. The correct answer is: $correct_answer${NC}"
-        fi
-
-        echo -e "${YELLOW}Explanation: $explanation${NC}"
     done
+
+    echo -e "\n${GREEN}Congratulations! You have successfully completed the quiz.${NC}\n"
+    read -s -p "Press any key to return to the menu."
+    echo
+            
+            if true; then
+                return 0
+            fi
 }
 
 start_quiz "$@"
