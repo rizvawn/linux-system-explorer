@@ -39,10 +39,21 @@ start_quiz() {
             fi
         done
 
-        echo
-        read -p "Your answer (a/b/c/d) or press Enter to exit: " user_answer
+        while true; do
+            echo
+            read -p "Your answer (a/b/c/d) or press Enter to exit: " user_answer
 
-        if [[ -z "$user_answer" ]]; then return 0; fi
+            if [[ -z "$user_answer" ]]; then return 0; fi
+
+            case "$user_answer" in
+                a|b|c|d)
+                    break
+                    ;;
+                *)
+                    echo -e "${RED}Error: Your answer isn't a valid option.${NC}"
+                    ;;
+            esac
+        done
 
         if [[ "$user_answer" == "$correct_answer" ]]; then
             ((score += 1))
