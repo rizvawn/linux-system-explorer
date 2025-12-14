@@ -16,17 +16,42 @@ start_quiz() {
         ["Q13"]="A program needs a shared library 'libc.so'. Where is it located?|a) /usr/lib|b) /bin/lib|c) /lib or /lib64|d) /var/lib|answer:c|explanation:/lib (or /lib64) contains essential shared libraries needed by /bin and /sbin programs."
     )
 
-    sorted_questions=($(printf '%s\n' "${!QUESTIONS[@]}" | sort -V))
+    score=0
 
-    length=${#QUESTIONS[@]}
+    for key in "${!QUESTIONS[@]}"; do
 
-    for key in "${sorted_questions[@]}"; do
         value="${QUESTIONS[$key]}"
+
         IFS='|' read -r -a parts <<< "$value"
-        printf '\n\n%s -> %s\n' "${key}" "${parts[0]}"
+
+        printf '\n\n%s -> %s\n\n' "Question" "${parts[0]}"
+
         for ((i=1; i<=4; i++)); do
-            printf '%-10s%-10s' "${parts[i]}"
+            printf '%s\n' "${parts[i]}"
         done
+
+        for part in "${parts[@]}"; do
+            if [[ "$part" == answer:* ]]; then
+                correct_answer="${part#answer:}"
+            fi
+            if [[ "$part" == explanation:* ]]; then
+                explanation="${part#explanation:}"
+            fi
+        done
+
+        echo
+        read -p "Your answer (a/b/c/d) or press Enter to exit: " user_answer
+
+        if [[ -z "$user_answer" ]]; then return 0; fi
+
+        if [[ "$user_answer" == "$correct_answer" ]]; then
+            ((score += 1))
+            echo -e "${GREEN}✓ Correct! Your score is ${score}.${NC}"
+        else    
+            echo -e "${RED}✗ Wrong. The correct answer is: $correct_answer${NC}"
+        fi
+
+        echo -e "${YELLOW}Explanation: $explanation${NC}"
     done
 }
 
