@@ -34,9 +34,6 @@ show_cheatsheet() {
     echo
     read -s -p "Press Enter to return to the menu"
     echo
-
-    if true; then return 0; fi
-
 }
 
 show_cheatsheet "$@"
