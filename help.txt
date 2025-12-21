@@ -1,0 +1,48 @@
+Linux System Explorer - Learn the Filesystem Hierarchy Standard (FHS)
+
+USAGE:
+    ./main.sh [OPTION] [ARGUMENT]
+
+DESCRIPTION:
+    Interactive tool for exploring Linux directories, testing FHS knowledge
+    through quizzes, and accessing a quick reference cheatsheet.
+
+OPTIONS:
+    No arguments        Launch interactive menu (default)
+    
+    -e, --explore PATH  Explore a specific directory
+                        Shows contents, metadata, and FHS context
+                        Example: ./main.sh --explore /etc
+    
+    -q, --quiz          Start the FHS knowledge quiz
+                        Answer all questions correctly to complete
+                        Wrong answers loop until mastered
+    
+    -c, --cheatsheet    Display FHS directory reference
+                        Quick lookup for all root-level directories
+    
+    -h, --help          Show this help message
+
+EXAMPLES:
+    # Interactive mode (menu-driven)
+    ./main.sh
+
+    # Explore the /var directory
+    ./main.sh --explore /var
+
+    # Take the quiz directly
+    ./main.sh --quiz
+
+    # View the cheatsheet
+    ./main.sh --cheatsheet
+
+LEARNING TIPS:
+    - Start with --cheatsheet to get familiar with FHS directories
+    - Use --explore to examine real directories on your system
+    - Take the --quiz to test your understanding
+    - Repeat wrong quiz answers until you master all concepts
+
+SAFETY:
+    This tool is READ-ONLY. It never modifies your filesystem.
+    Some directories require root access - the tool will notify you.
+

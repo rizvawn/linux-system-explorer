@@ -10,6 +10,10 @@ readonly NC='\033[0m'
 
 menu() {
 
+    echo -e "${GREEN}Welcome to Linux System Explorer!${NC}"
+    echo "This tool will help you learn the Filesystem Hierarchy Standard."
+
+    
     while [[ true ]]; do
         echo -e "\n${BLUE}Main Menu:${NC}"
         echo "1. Explore a directory"
@@ -18,10 +22,6 @@ menu() {
         echo "4. Exit"
         read -p "Choose an option (1-4): " choice
         echo
-
-        local function_explore_directory="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/function_explore_directory.sh"
-        local function_start_quiz="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/function_start_quiz.sh"
-        local function_cheat_sheet="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/function_cheat_sheet.sh"
 
         case $choice in
             1) source "$function_explore_directory" ;;
@@ -35,10 +35,40 @@ menu() {
 
 main() {
 
-    echo -e "${GREEN}Welcome to Linux System Explorer!${NC}"
-    echo "This tool will help you learn the Filesystem Hierarchy Standard."
+    echo -e "\n${GREEN}Welcome to Linux System Explorer!\n${NC}"
+    echo -e "This tool will help you learn the Filesystem Hierarchy Standard.\n"
 
-    menu
+    local function_explore_directory="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/function_explore_directory.sh"
+    local function_start_quiz="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/function_start_quiz.sh"
+    local function_cheat_sheet="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/function_cheat_sheet.sh"
+    local help_file="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/help.txt"
+
+    if [[ $# -gt 0 ]]; then
+
+        case $1 in 
+            --quiz|-q)
+                source "$function_start_quiz" ;;
+            --cheatsheet|-c)
+                source "$function_cheat_sheet" ;;
+            --explore|-e)
+                if [[ -z "${2:-}" ]]; then
+                    echo -e "${RED}Error: --explore requires a directory path${NC}"
+                    echo "Example: ./main.sh --explore /etc"
+                    echo "Run './main.sh --help' for more information."
+                    exit 1
+                fi
+                source "$function_explore_directory" "$2" ;;
+            --help|-h)
+                cat "$help_file" ;;
+            *)
+                echo -e "@{$RED}Error: Unknown options '$1'${NC}"
+                echo "Run './main.sh --help for more information."
+                exit 1
+                ;;
+        esac
+    else
+        menu
+    fi
 }
 
 main "$@"

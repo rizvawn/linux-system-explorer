@@ -83,10 +83,6 @@ start_quiz() {
     echo -e "\n${GREEN}Congratulations! You have successfully completed the quiz.${NC}\n"
     read -s -p "Press any key to return to the menu."
     echo
-            
-            if true; then
-                return 0
-            fi
 }
 
 start_quiz "$@"
