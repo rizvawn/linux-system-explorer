@@ -28,7 +28,7 @@ menu() {
             2) source "$function_start_quiz" ;;
             3) source "$function_cheat_sheet";;
             4) echo "Goodbye!"; break ;;
-            *) echo -e "${RED}invalid choice. Please select 1-3.${NC}" ;;
+            *) echo -e "${RED}invalid choice. Please select 1-4.${NC}" ;;
         esac
     done
 }
@@ -61,7 +61,7 @@ main() {
             --help|-h)
                 cat "$help_file" ;;
             *)
-                echo -e "@{$RED}Error: Unknown options '$1'${NC}"
+                echo -e "${RED}Error: Unknown options '$1'${NC}"
                 echo "Run './main.sh --help for more information."
                 exit 1
                 ;;
