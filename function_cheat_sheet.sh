@@ -21,6 +21,8 @@ show_cheatsheet() {
     local path=""
     local description=""
 
+    echo -e "FHS Directory Cheatsheet\n========================\n"
+
     for entry in "${DIRECTORIES[@]}"; do
 
         path="${entry%%:*}"
