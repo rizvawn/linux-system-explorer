@@ -7,7 +7,10 @@ A production-ready educational CLI tool built with Bash that demonstrates profic
 
 ## 🎥 Demo
 
+![Linux System Explorer Demo](demo.gif)
+
 **Quick Preview:**
+
 ```bash
 # Show help and available commands
 ./main.sh --help
@@ -24,8 +27,6 @@ A production-ready educational CLI tool built with Bash that demonstrates profic
 # Interactive menu (default)
 ./main.sh
 ```
-
-> **Note:** A terminal recording (`demo.cast`) is available in the repository. Play it with: `asciinema play demo.cast`
 
 ## ✨ Features & Technical Highlights
 
