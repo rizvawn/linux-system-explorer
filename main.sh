@@ -12,9 +12,8 @@ menu() {
 
     echo -e "${GREEN}Welcome to Linux System Explorer!${NC}"
     echo "This tool will help you learn the Filesystem Hierarchy Standard."
-
-    
-    while [[ true ]]; do
+        
+    while true ; do
         echo -e "\n${BLUE}Main Menu:${NC}"
         echo "1. Explore a directory"
         echo "2. Take a quiz"
@@ -38,10 +37,13 @@ main() {
     echo -e "\n${GREEN}Welcome to Linux System Explorer!\n${NC}"
     echo -e "This tool will help you learn the Filesystem Hierarchy Standard.\n"
 
-    local function_explore_directory="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/function_explore_directory.sh"
-    local function_start_quiz="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/function_start_quiz.sh"
-    local function_cheat_sheet="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/function_cheat_sheet.sh"
-    local help_file="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/help.txt"
+    local script_dir
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+    local function_explore_directory="$script_dir/function_explore_directory.sh"
+    local function_start_quiz="$script_dir/function_start_quiz.sh"
+    local function_cheat_sheet="$script_dir/function_cheat_sheet.sh"
+    local help_file="$script_dir/help.txt"
 
     if [[ $# -gt 0 ]]; then
 
