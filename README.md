@@ -5,6 +5,28 @@
 
 A production-ready educational CLI tool built with Bash that demonstrates proficiency in system programming, filesystem operations, and interactive application design. The tool provides comprehensive exploration of the Linux Filesystem Hierarchy Standard (FHS) through an intuitive interface combining directory navigation, knowledge assessment, and reference documentation.
 
+## 🎥 Demo
+
+**Quick Preview:**
+```bash
+# Show help and available commands
+./main.sh --help
+
+# Jump directly to quiz mode
+./main.sh --quiz
+
+# View FHS reference guide  
+./main.sh --cheatsheet
+
+# Explore a specific directory
+./main.sh --explore /etc
+
+# Interactive menu (default)
+./main.sh
+```
+
+> **Note:** A terminal recording (`demo.cast`) is available in the repository. Play it with: `asciinema play demo.cast`
+
 ## ✨ Features & Technical Highlights
 
 ### Core Capabilities
