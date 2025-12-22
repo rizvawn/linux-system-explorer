@@ -1,6 +1,8 @@
+#!/usr/bin/env bash
+
 show_cheatsheet() {
 
-   declare readonly DIRECTORIES=(
+   declare -r DIRECTORIES=(
         "/etc:System configuration files"
         "/var:Variable data (logs, caches, spools)"
         "/proc:Process and kernel info (virtual)"
@@ -32,7 +34,7 @@ show_cheatsheet() {
     done
 
     echo
-    read -s -p "Press Enter to return to the menu"
+    read -s -r -p "Press Enter to return to the menu"
     echo
 }
 

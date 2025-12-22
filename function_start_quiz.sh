@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 start_quiz() {
 
     declare -A QUESTIONS=(
@@ -24,7 +26,7 @@ start_quiz() {
 
     mapfile -t sorted_keys < <(printf '%s\n' "${!QUESTIONS[@]}" | sort -V)
 
-    while (( $score < "${#QUESTIONS[@]}" )); do
+    while (( score < "${#QUESTIONS[@]}" )); do
 
         for key in "${sorted_keys[@]}"; do
 
@@ -36,7 +38,7 @@ start_quiz() {
 
             IFS='|' read -r -a parts <<< "$value"
 
-            printf '\n\n%s -> %s\n\n' "$key" "${parts[0]}"
+            printf '%s -> %s\n\n' "$key" "${parts[0]}"
 
             for ((i=1; i<=4; i++)); do
                 printf '%s\n' "${parts[i]}"
@@ -53,7 +55,7 @@ start_quiz() {
 
             while true; do
                 echo
-                read -p "Your answer (a/b/c/d) or press Enter to exit: " user_answer
+                read -r -p "Your answer (a/b/c/d) or press Enter to exit: " user_answer
 
                 if [[ -z "$user_answer" ]]; then return 0; fi
 
@@ -70,18 +72,18 @@ start_quiz() {
             if [[ "$user_answer" == "$correct_answer" ]]; then
                 ((score += 1))
                 answered_correctly["$key"]=1
-                echo -e "${GREEN}✓ Correct! Your score is ${score}/${#QUESTIONS[@]}.${NC}"
+                echo -e "${GREEN}\n✓ Correct! Your score is ${score}/${#QUESTIONS[@]}.\n${NC}"
             else    
-                echo -e "${RED}✗ Wrong. The correct answer is: $correct_answer${NC}"
+                echo -e "${RED}\n✗ Wrong. The correct answer is: $correct_answer\n${NC}"
             fi
 
-            echo -e "${YELLOW}Explanation: $explanation${NC}"
+            echo -e "${YELLOW}Explanation: $explanation${NC}\n"
         done
 
     done
 
     echo -e "\n${GREEN}Congratulations! You have successfully completed the quiz.${NC}\n"
-    read -s -p "Press any key to return to the menu."
+    read -s -r -p "Press any key to return to the menu."
     echo
 }
 

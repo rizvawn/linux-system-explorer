@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 explore_directory() {
 
     local dir="${1:-}"
@@ -23,7 +25,7 @@ explore_directory() {
 
     echo -e "${GREEN}Exploring: $dir${NC}"
     echo -e "${YELLOW}Contents (ls -lah, first 10 lines):${NC}"
-    ls -lah "$dir" | head -10 || true
+    find "$dir" -maxdepth 1 -ls | head -10 || true
     echo -e "\n${YELLOW}Total size (du -sh):${NC}"
     du -sh "$dir" 2>/dev/null || echo -e "${RED}Could not determine size${NC}"
 
@@ -43,8 +45,9 @@ explore_directory() {
         fi
 
         if [[ -d "$full_path" ]]; then
-            explore_directory "$full_path"
-            if [[ $? -eq 0 ]]; then return 0; fi
+            if explore_directory "$full_path"; then 
+                return 0
+            fi
         elif [[ -f "$full_path" ]]; then
             echo -e "${GREEN}File Type:${NC}"
             file_info=$(file "$full_path")

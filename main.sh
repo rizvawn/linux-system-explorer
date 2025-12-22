@@ -1,12 +1,22 @@
 #!/usr/bin/env bash
+# Dynamic sourcing is intentional for portability - ShellCheck can't follow runtime paths
+# shellcheck disable=SC1090
 
 set -euo pipefail
 
-readonly RED='\033[0;31m'
-readonly GREEN='\033[0;32m'
-readonly YELLOW='\033[1;33m'
-readonly BLUE='\033[0;34m'
-readonly NC='\033[0m' 
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
+export YELLOW='\033[1;33m'
+export BLUE='\033[0;34m'
+export NC='\033[0m' 
+
+export script_dir
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+function_explore_directory="$script_dir/function_explore_directory.sh"
+function_start_quiz="$script_dir/function_start_quiz.sh"
+function_cheat_sheet="$script_dir/function_cheat_sheet.sh"
+help_file="$script_dir/help.txt"
 
 menu() {
 
@@ -19,7 +29,7 @@ menu() {
         echo "2. Take a quiz"
         echo "3. View cheat sheet"
         echo "4. Exit"
-        read -p "Choose an option (1-4): " choice
+        read -r -p "Choose an option (1-4): " choice
         echo
 
         case $choice in
@@ -36,14 +46,6 @@ main() {
 
     echo -e "\n${GREEN}Welcome to Linux System Explorer!\n${NC}"
     echo -e "This tool will help you learn the Filesystem Hierarchy Standard.\n"
-
-    local script_dir
-    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-    local function_explore_directory="$script_dir/function_explore_directory.sh"
-    local function_start_quiz="$script_dir/function_start_quiz.sh"
-    local function_cheat_sheet="$script_dir/function_cheat_sheet.sh"
-    local help_file="$script_dir/help.txt"
 
     if [[ $# -gt 0 ]]; then
 
@@ -63,7 +65,7 @@ main() {
             --help|-h)
                 cat "$help_file" ;;
             *)
-                echo -e "${RED}Error: Unknown options '$1'${NC}"
+                echo -e "${RED}Error: Unknown option '$1'${NC}"
                 echo "Run './main.sh --help for more information."
                 exit 1
                 ;;
